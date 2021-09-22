@@ -32,6 +32,10 @@ public class OrcamentoController {
         orcamento.salvarServico(servico);
         orcamentoService.save(orcamento);
     }
+    @DeleteMapping("/{id}")
+    public void deletarOrcamento(@PathVariable Long id){
+        orcamentoService.deletarOrcamento(id);
+    }
     @GetMapping("/a/{id}")
     public String retornarPapelorcamento(@PathVariable Long id){
         return orcamentoService.findById(id).toString();

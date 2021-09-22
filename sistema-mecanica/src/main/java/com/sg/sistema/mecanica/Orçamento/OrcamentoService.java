@@ -28,6 +28,10 @@ public class OrcamentoService {
         return orcamentoRepository.findAll();
     }
 
+    public  void deletarOrcamento(Long id){
+        orcamentoRepository.delete(orcamentoRepository.getById(id));
+    }
+
     public void aceitarOrcamento(Long id) throws Exception {
         Orcamento orcamento =  orcamentoRepository.getById(id);
         if(orcamento.getDataInicio() != null)throw new Exception("esse orçamento ja esta aceito!");
