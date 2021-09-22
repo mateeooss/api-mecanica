@@ -1,14 +1,19 @@
 package com.sg.sistema.mecanica;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
 public class test {
 
     public static void main(String[] args) {
+        //define datas
+        LocalDateTime dataCadastro = LocalDateTime.of(2015, 1, 1, 0, 0, 0);
+        LocalDateTime hoje = LocalDateTime.now();
+
+//calcula diferenç
+        long meses = dataCadastro.until(hoje, ChronoUnit.DAYS);
+        System.out.println(meses);
 //        Calendar dataInicio=Calendar.getInstance();
 //        Calendar dataFim=Calendar.getInstance();
 //        dataFim.set(Calendar.MONTH, 11);

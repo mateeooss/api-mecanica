@@ -40,4 +40,12 @@ public class Servico {
     public void setValor(Long valor) {
         this.valor = valor;
     }
+
+    @Override
+    public String toString() {
+        return "Servico{" +
+                "descricao='" + descricao + '\'' +
+                ", valor=" + valor +
+                '}';
+    }
 }

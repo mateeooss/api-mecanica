@@ -32,14 +32,17 @@ public class OrcamentoController {
         orcamento.salvarServico(servico);
         orcamentoService.save(orcamento);
     }
-
-    @PutMapping("/fimServicos/{id}")
-    public void finalizarServicos(@PathVariable Long id){
+    @GetMapping("/a/{id}")
+    public String retornarPapelorcamento(@PathVariable Long id){
+        return orcamentoService.findById(id).toString();
+    }
+    @PutMapping("/fimservicos/{id}")
+    public void finalizarServicos(@PathVariable Long id) throws Exception {
         orcamentoService.finalizarServicos(id);
     }
 
     @PutMapping("/aceitar-orcamento/{id}")
-    public void  aceitarOrcamento(@PathVariable Long id){
+    public void  aceitarOrcamento(@PathVariable Long id) throws Exception {
         orcamentoService.aceitarOrcamento(id);
     }
 }

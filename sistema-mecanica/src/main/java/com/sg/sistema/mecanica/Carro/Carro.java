@@ -54,4 +54,10 @@ public class Carro {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    @Override
+    public String toString() {
+        return "\nplaca= " + placa + '\n' +
+                "modelo= " + modelo + '\n' ;
+    }
 }

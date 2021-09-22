@@ -7,10 +7,8 @@ import com.sg.sistema.mecanica.Funcionario.Funcionario;
 import com.sg.sistema.mecanica.Servicos.Servico;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,7 +28,6 @@ public class Orcamento {
     private Calendar dataFim ;
 
     private int diasTrabalhados;
-
     @ManyToMany()
     private List<Servico> servicos;
 
@@ -43,20 +40,26 @@ public class Orcamento {
         this.servicos = servicos;
     }
 
-    public Long getId() {
-        return id;
+    public int calcularDiasTrabalhados(){
+
+        LocalDateTime localDateInicio = dataInicio.getTime().toInstant().atZone( ZoneId.systemDefault() ).toLocalDateTime();
+        LocalDateTime localDateFim = dataFim.getTime().toInstant().atZone( ZoneId.systemDefault() ).toLocalDateTime();
+
+        long dias = localDateInicio.until(localDateFim, ChronoUnit.DAYS);
+        int diasCorridos = (int) dias;
+        return diasCorridos;
     }
+ public String calcularValorTotal(){
+        Long valorTotal = null;
+        for (Servico servico : servicos){
+            valorTotal =+ servico.getValor();
+        }
+        return valorTotal.toString();
+ }
+
 
     public void salvarServico(Servico servico) {
         servicos.add(servico);
-    }
-
-    public int calcularDiasTrabalhados(){
-        LocalDate inicio = Instant.ofEpochMilli(dataInicio.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate fim = Instant.ofEpochMilli(dataFim.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate();
-        int diasCorridos = Period.between(inicio, fim).getDays();
-        return diasCorridos;
-
     }
 
     public Carro getCarro() {
@@ -115,5 +118,16 @@ public class Orcamento {
         return servicos;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    @Override
+    public String toString() {
+       return "---Orcamento--- \n"  +
+                "carro:" + carro+
+                "\n\nfuncionario:\n" + funcionario +
+                "\ndiasTrabalhados:" + diasTrabalhados+
+                "\ntotalValor:" + calcularValorTotal();
+    }
 }
